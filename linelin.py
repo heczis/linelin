@@ -1,8 +1,17 @@
+"""
+1D viscoelastic material model with nonlinear elements.
+"""
 import numpy as np
 import scipy.integrate
 import scipy.interpolate
 
 class Material:
+    """
+    Viscoelastic material model of Zener type with the possibility of
+    all three elements (two springs, one damper) to be nonlinear.
+    Provides method for computing stress when deformation as a
+    function of time is given.
+    """
     def __init__(self, Ee=lambda x: 1., Ev=lambda x: 1., c=lambda x: .1):
         """
         Ee, Ev, c: functions of a single scalar argument. Return
