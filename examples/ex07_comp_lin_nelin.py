@@ -12,15 +12,21 @@ epsilon = scipy.interpolate.interp1d(
 # linear material:
 mat = Material()
 # different nonlinear materials:
+Ee_fun = lambda x:.95 + .05*x
+Ev_fun = lambda x:.9 + .5*x
+c_fun = lambda x:.09 + .05*x
 nl_materials = [
-    Material(Ee=lambda x:.995 + .025*x),
-    Material(Ev=lambda x:.9 + .5*x),
-    Material(c =lambda x:.09 + .05*x),
+    Material(Ee=Ee_fun),
+    Material(Ev=Ev_fun),
+    Material(c =c_fun),
 ]
 mats = [
-    r'$E_{\rm e} = 0.995 + 0.01\varepsilon$',
-    r'$E_{\rm v} = 0.9 + 0.2\varepsilon_1$',
-    r'$c = 0.995 + 0.01\dot\varepsilon$',
+    r'$E_{{\rm e}} = {:.3f} + {:.3f}\varepsilon$'.format(
+        Ee_fun(0), Ee_fun(1)-Ee_fun(0)),
+    r'$E_{{\rm v}} = {:.3f} + {:.3f}\varepsilon_1$'.format(
+        Ev_fun(0), Ev_fun(1)-Ev_fun(0)),
+    r'$c = {:.3f} + {:.3f}\dot\varepsilon$'.format(
+        c_fun(0), c_fun(1)-c_fun(0)),
 ]
 
 n = 30
